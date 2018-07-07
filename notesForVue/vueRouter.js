@@ -249,3 +249,25 @@ export default new Router({
     ]
 })
 
+
+/**
+ * 重定向
+ * 在路由配置文件中（ /src/router/index.js） 把原来的component换成redirect参数,例如：
+ */
+export default new Router({
+    routes: [
+        {
+            path: '/',
+            component: Hello
+        }, {
+            path: '/params/:newsId(\\d+)/:newsTitle',
+            component: Params
+        }, {
+            path: '/goback',
+            redirect: '/params/:newsId(\\d+)/:newsTitle'
+        }
+
+    ]
+})
+
+// 这里设置了 /goback  路由，但是并没有设置 component 参数，而是把component 参数变成了 redirect ，redirect参数的值是需要重定向到那个路由的path值
