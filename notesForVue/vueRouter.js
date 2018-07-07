@@ -271,3 +271,58 @@ export default new Router({
 })
 
 // 这里设置了 /goback  路由，但是并没有设置 component 参数，而是把component 参数变成了 redirect ，redirect参数的值是需要重定向到那个路由的path值
+
+
+
+/**
+ * 404页面(用户输错页面路径，需要统一给用户展示一个美观的404页面)
+ */
+{
+    path:"*",
+    component:Error
+}
+// path:’*’ 就是找不到页面时的配置，component 是 组件，Error就是 Error.vue 文件模板
+
+
+
+/**
+ * 路由钩子函数 2种，一是写在路由配置文件，二是写在模板里
+ */
+
+//  路由配置中的钩子函数 beforeEnter
+{
+    path: '/params/:newsId(\\d+)/:newsTitle',
+    component: Params,
+    beforeEnter: (to, from, next) => {
+        console.log('我进入了params模板');
+        console.log(to);
+        console.log(from);
+        next();
+    }
+}
+
+// 路由配置里只有beforeEnter 函数
+
+
+
+// 写在模板中的钩子函数
+// beforeRouteEnter:在路由进入前的钩子函数
+// beforeRouteLeave:在路由离开前的钩子函数
+<script >
+export default {
+    name: 'params',
+    data() {
+        return {
+            msg: 'params page'
+        }
+    },
+    beforeRouteEnter: (to, from, next) => {
+        console.log("准备进入路由模板");
+        next();
+    },
+    beforeRouteLeave: (to, from, next) => {
+        console.log("准备离开路由模板");
+        next();
+    }
+}
+</script>
