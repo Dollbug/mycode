@@ -1,5 +1,6 @@
 // vue 路由学习笔记
 
+
 // 使用 vue-router
 
 import Vue from 'vue' //引入vue
@@ -104,3 +105,75 @@ export default new Router({
 /**
  * to：写导航路径，是router/index.js 文件里边配置的path值，如果默认首页，要写成 to="/"
  */
+
+
+
+
+
+// 关于vue子路由配置
+// Hi1 && Hi2 都是 Hi 页面内的子路由
+
+import Vue from 'vue'
+import Router from 'vue-router'
+import Hello from '@/components/Hello'
+import Hi from '@/components/Hi'
+import Hi1 from '@/components/Hi1'
+import Hi2 from '@/components/Hi2'
+
+Vue.use(Router)
+
+export default new Router({
+    routes: [
+        {
+            path: '/',
+            name: 'Hello',
+            component: Hello
+        }, {
+            path: '/hi',
+            component: Hi,
+            children: [
+                { path: '/', component: Hi },
+                { path: 'hi1', component: Hi1 },
+                { path: 'hi2', component: Hi2 },
+            ]
+        }
+    ]
+})
+
+
+
+
+
+
+ /**
+  * vue-router 传递参数
+  */
+
+//   一、name 传递参数
+// 1、路由文件 src/router/index.js配置name属性
+routes:[
+    {
+        path:'/',
+        name:'Hello',
+        component:Hello
+    }
+]
+
+// 2、在模板里 用 $router.name 接收，例如
+<p>{{$route.name}}</p>
+
+
+
+// 二、通过<router-link to=''></router-link> 中的to传参
+// 1、写法
+<router-link :to="{name:XXX,params:{key:value}}">valueString</router-link>
+// 注意： to 是带冒号的
+// name ：路由配置中的name值
+//  params：要传的参数，对象形式，可以传多个值
+// 例子如下
+<router-link :to="{name:'hi1',params:{uername:'cxf'}"></router-link>//路由标签写法
+// 路由配置
+{path:'hi1',name:'hi1',component:Hi1}
+// 模板内接收参数
+{{$route.params.username}}
+
