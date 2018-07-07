@@ -282,6 +282,7 @@ export default new Router({
     component:Error
 }
 // path:’*’ 就是找不到页面时的配置，component 是 组件，Error就是 Error.vue 文件模板
+// 404路由配置要放到最后一条
 
 
 
@@ -326,3 +327,12 @@ export default {
     }
 }
 </script>
+
+
+
+
+/**
+ * 编程式导航
+ * this.$router.go(-1) 和 this.$router.go(1)
+ * this.$router.push('/');  push方法内的字符串为路由配置里边的path值
+ */
