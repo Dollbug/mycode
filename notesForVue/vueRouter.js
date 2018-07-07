@@ -177,3 +177,75 @@ routes:[
 // 模板内接收参数
 {{$route.params.username}}
 
+
+
+// 三、利用url传递参数
+// 1、以冒号形式配置路由
+{
+    path:'params/:newsId/:newsTitle',
+    component:Params
+}
+
+// 2、建立 params.vue 组件，拿到 url 传递的 newsId && newsTitle
+<template>
+    <div>
+        <h2>{{ msg }}</h2>
+        <p>新闻ID：{{ $route.params.newsId }}</p>
+        <p>新闻标题：{{ $route.params.newsTitle }}</p>
+    </div>
+</template>
+
+    <script>
+        export default {
+            name: 'params',
+  data () {
+    return {
+            msg: 'params page'
+      }
+    }
+  }
+</script>
+
+
+// 3、 在App.vue 文件里加入 <router-view></router-view> 标签，就可以使用url传值了
+<router-link to="/params/101/小黑不黑">利用URL传值</router-link>
+
+
+
+
+
+
+/**
+ * 单页面多路由区域操作
+ * 原则：一个组件渲染，一个 <router-view></router-view> 标签
+ * <router-view name="myComponent"> </router-view> 通过name来决定渲染哪一个组件模板
+ */
+
+// 例如在app.vue 内，有三个 <router-view></router-view> 标签，三个标签内分别渲染不同的组件模版
+    <router-view ></router-view>
+    <router-view name="left" style="float:left;width:50%;background-color:#ccc;height:300px;"></router-view>
+    <router-view name="right" style="float:right;width:50%;background-color:#c0c;height:300px;"></router-view>
+
+// 则，对应路由配置需要如下：
+import Vue from 'vue'
+import Router from 'vue-router'
+import Hello from '@/components/Hello'
+import Hi1 from '@/components/Hi1'
+import Hi2 from '@/components/Hi2'
+
+Vue.use(Router)
+
+export default new Router({
+    routes: [
+        {
+            path: '/',
+            components: {
+                default: Hello,
+                left: Hi1,
+                right: Hi2
+            }
+        }
+
+    ]
+})
+
